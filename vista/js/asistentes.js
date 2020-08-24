@@ -262,7 +262,39 @@ $(".btnEliminarListaAsistente").on("click", function () {
 
 })
 
+$(".btnEnviarCorreoPresente").on("click", function () {
 
+    var idAsistente = $(this).attr('idAsistente')
+    var correoAsistente = $(this).attr('correoAsistente')
+    var nombreAsietnte = $(this).attr('nombreAsietnte')
+
+    var data = new FormData();
+
+    data.append("correoAsistente", correoAsistente)
+    data.append("nombreAsietnte", nombreAsietnte)
+    data.append("idAsistente", idAsistente)
+  
+    data.append("btnEnviarCorreo", true)
+  
+  
+    $.ajax({
+  
+      url: "ajax/ajax.asistente.php",
+      method: "POST",
+      data: data,
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+  
+      success: function (res) {
+        if(res){
+          swal("Bien ", "Corre enviado a "+correoAsistente, "success");
+        }
+      }
+    })
+
+})
 
 
 

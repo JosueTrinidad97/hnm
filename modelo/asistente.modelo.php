@@ -397,7 +397,7 @@ class AsistenteModelo
   {
 
       try {
-          $sql = "SELECT count (idAsistente)  as total_asistencia_evento from Asistentes where idEventos= ?;
+          $sql = "SELECT count (idAsistente)  as total_asistencia_evento from Asistentes where idEventos= ? AND estado =1;
           ";
 
           $con = ConexionModelo::conectarBd('EventosPrueba');

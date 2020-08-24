@@ -106,7 +106,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="#" method="POST">
+				<form action="#" method="POST" enctype="multipart/form-data"> <!-- Para que cargue archivos mulimedia en el formulario -->
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-6 col-12">
@@ -164,7 +164,7 @@
 										<div class="form-group">
 
 											<label>Seleccionar Imagen(s):</label><br>
-											<input class="w3-input w3-border form-control" type="file" id="archivo2[]" name="imagenes[]" multiple required><br>
+											<input class=" form-control" type="file" id="img-evento" name="img-evento"  required><br>
 											<label id="error"></label><br>
 										</div>
 

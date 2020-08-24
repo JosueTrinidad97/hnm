@@ -124,7 +124,7 @@
 							<?php endforeach; ?>
 							<div class="row">
 								<div class="col-6">
-									<h6 class="text-center">Lugares disponibles <br> <strong class="card-lugares"><?php echo $value['capacidad'] ?></strong></h6>
+									<h6 class="text-center">Capacidad  <br> <strong class="card-lugares"><?php echo $value['capacidad'] ?></strong></h6>
 								</div>
 								<div class="col-6">
 									<h6 class="text-center">Lugar <br> <strong class="card-lugar"><?php echo $value['ubicacion'] ?>l</strong></h6>
@@ -144,7 +144,20 @@
 							</strong></h6>
 							<div class="row">
 								<div class="col-md-12 col-12 btn-group">
+									<?php
+									
+									$contadorAsistente = AsistenteModelo::mdlObtenerConteoListaAsistenciaEventos($value['idEventos']);
+									$cupo = $value['capacidad'];
+						
+									if ($contadorAsistente['total_asistencia_evento'] >= $cupo ):
+									
+									?>
+
+									<button class="btn btn-default" disabled="disabled"><strong> Cupo lleno :( Cominucate al </strong> </button>
+
+									<?php  else: ?>
 									<button class="btn btn-primary btnInscripcionEvento " data-toggle="modal" data-target="#mdlInscripcion"  nombreEvento="<?php echo $value['tema'] ?>" idEvento="<?php echo $value['idEventos'] ?>">Inscribirme</button>
+									<?php endif; ?>
 									<a href="<?php echo $url."info/".$value['idEventos'] ?>" class="btn btn-warning">Info</a>
 									<?php
 									$contador = AsistenteModelo::mdlObtenerConteoListaAsistenciaEventos($value['idEventos']); ?>

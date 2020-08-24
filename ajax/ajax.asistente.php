@@ -2,6 +2,11 @@
 require_once '../modelo/asistente.modelo.php';
 require_once '../controlador/asistente.controlador.php';
 require_once '../controlador/app.controlador.php';
+
+
+require '../lib/phpMailer/Exception.php';
+require '../lib/phpMailer/PHPMailer.php';
+require '../lib/phpMailer/SMTP.php';
 class AjaxAsistente
 {
 
@@ -65,4 +70,10 @@ if (isset($_POST['btnListaAgregarPresente'])) {
     $asistente = new AjaxAsistente();
     $asistente->idAsistente = $_POST['idAsistente'];
     $asistente->listaAgregarPresente();
+}
+
+
+if (isset($_POST['btnEnviarCorreo'])) {
+    $res = AsistenteControlador::ctrEnviarCorreoPresentes();
+    echo json_encode($res, true);
 }

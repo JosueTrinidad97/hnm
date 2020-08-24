@@ -18,7 +18,7 @@
 
 			 	// Abrir la conexion
 
-			 	$con = ConexionModelo::conectarBd('login');
+			 	$con = ConexionModelo::conectarBd('EventosPrueba');
 
 			 	// Asignar el query a la función prepare (Preparar consulta)
 
@@ -61,7 +61,7 @@
 
 				$sql = "UPDATE usuario SET token = ? WHERE correo = ?";
 
-				$con = ConexionModelo::conectarBd('login');
+				$con = ConexionModelo::conectarBd('EventosPrueba');
 
 				$pps = $con -> prepare($sql);
 
@@ -86,9 +86,9 @@
 
 		public static function mdlObtenerUsuarios(){
 			try {
-				$sql = "SELECT id_usuario,Nombre,correo FROM usuario";
+				$sql = "SELECT idUsusario,Nombre,correo FROM usuario";
 
-				$con = ConexionModelo::conectarBd('login');
+				$con = ConexionModelo::conectarBd('EventosPrueba');
 
 				$pps = $con ->prepare($sql);
 
@@ -110,7 +110,7 @@
 			try {
 				$sql = "UPDATE usuario  set contrasenia = ? where  correo = ?";
 
-				$con = ConexionModelo::conectarBd('login');
+				$con = ConexionModelo::conectarBd('EventosPrueba');
 
 				$pps = $con ->prepare($sql);
 

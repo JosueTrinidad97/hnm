@@ -14,7 +14,7 @@
         foreach ($usuarios as  $value) :
      ?>
      <tr>
-       <td><?php echo $value['id_usuario']; ?></td>
+       <td><?php echo $value['idUsusario']; ?></td>
        <td><?php echo $value['Nombre']; ?></td>
        <td><?php echo $value['correo']; ?></td>
        <td><button class="btn btn-dark btnCambiarPass" data-toggle="modal" email = "<?php echo $value['correo']; ?>" data-target="#exampleModal">Cambiar contraseña</button></td>

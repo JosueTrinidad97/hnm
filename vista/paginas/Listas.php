@@ -60,7 +60,7 @@
                                 <td>
                                 <a class="btn btn-warning" href="http://localhost/HNM%20avance5/lib/reportes/pagos/constancia.php?idAsistente=<?php echo $value['idAsistente'] ?>" target="_blank"><i class="fas fa-file-pdf"></i></a>
                                     <button class="btn btn-danger btnEliminarListaAsistente" idAsistente="<?php echo $value['idAsistente'] ?>"><i class="fas fa-trash"></i></button>
-                                    <button class="btn btn-success btnEliminarListaAsistente" idAsistente="<?php echo $value['idAsistente'] ?>"><i class="nav-icon fas fa-mail-bulk"></i></button>
+                                    <button class="btn btn-success btnEnviarCorreoPresente" idAsistente="<?php echo $value['idAsistente'] ?>" correoAsistente = "<?php echo $value['correo'] ?>" nombreAsistente = "<?php echo $value['nombre'] ?>" ><i class="nav-icon fas fa-mail-bulk"></i></button>
                                    
                                 </td>
 

@@ -87,6 +87,51 @@ class EventoControlador
 
 
 
+                // Procesar guarado de imagen 
+
+                if ($_FILES['img-evento']['name'] != "") {
+
+                    list($ancho, $alto) = getimagesize($_FILES['img-evento']['tmp_name']);
+    
+                    $nuevoAncho = 500;
+                    $nuevoAlto = 500;
+    
+                    $directorio = "vista/img/img-eventos/";
+                    $rutaImgEvento = "";
+    
+                    mkdir($directorio, 0777, true);
+    
+    
+                    if ($_FILES["img-evento"]["type"] == "image/jpeg") {
+    
+                        $rutaImgEvento = "vista/img/img-eventos/".$_POST['idEventos'].".jpg";
+    
+                        $origen = imagecreatefromjpeg($_FILES['img-evento']['tmp_name']);
+                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+    
+                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+    
+                        imagejpeg($destino, $rutaImgEvento);
+                    } elseif ($_FILES['img-evento']['type'] == "image/png") {
+    
+                        $rutaImgEvento = "vista/img/img-eventos/".$_POST['idEventos'].".png";
+    
+                        $origen = imagecreatefrompng($_FILES['img-evento']['tmp_name']);
+                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+    
+                        imagefill($destino, 0, 0, imagecolorallocate($destino, 255, 255, 255));
+    
+    
+                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+    
+                        imagepng($destino, $rutaImgEvento);
+                    } else {
+                        echo "Imagen no admitida";
+                    }
+                }
+
+                $_POST['imagen'] = $rutaImgEvento;
+
 
                 $guardarEvento = EventoModelo::mdlAgreagarEvento($_POST);
 

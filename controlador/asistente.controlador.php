@@ -1,11 +1,15 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 
 class AsistenteControlador
 {
 
 
 
-    public static function ctrGurdarAsistente($permiso=false)
+    public static function ctrGurdarAsistente($permiso = false)
     {
 
         if (isset($_POST['btnGuardarAsistente'])) {
@@ -17,29 +21,37 @@ class AsistenteControlador
             }
 
 
-            $detalleEvento = EventoModelo::mdlConsultarEvento($_POST['idEventos']);// cuando la hora del evento expire no permita registrarse con settalert
+            $detalleEvento = EventoModelo::mdlConsultarEvento($_POST['idEventos']); // cuando la hora del evento expire no permita registrarse con settalert
 
-            
-           
+
+
 
             date_default_timezone_set('America/Mexico_city');
 
-			$fecha = date('Y-m-d');
+            $fecha = date('Y-m-d');
 
 
-			$hora = date('H:i:s');
+            $hora = date('H:i:s');
 
             $fechaActual = $fecha . ' ' . $hora;
 
-            if($detalleEvento['fecha'] < $fechaActual & $permiso == false){
+            $contadorAsistente = AsistenteModelo::mdlObtenerConteoListaAsistenciaEventos($_POST['idEventos']);
+            $cupo = $detalleEvento['capacidad'];
+
+            if ($contadorAsistente['total_asistencia_evento'] >= $cupo & $permiso == false) {// al momento de no recargar la pagina no nos permitira ingresar mas asistentes
+                AppControlador::mensajeInfo('Mal', 'Este evento ya esta lleno', 'error', './');
+
+                return false;
+            }
+
+            if ($detalleEvento['fecha'] < $fechaActual & $permiso == false) { // permiso para no dejar inscribir en el evento despues de llenado del mismo 
 
                 AppControlador::mensajeInfo('Mal', 'La fecha de este evento ya esta vencida', 'error', './');
 
                 return false;
-           
             }
 
-            
+
 
 
 
@@ -269,6 +281,54 @@ class AsistenteControlador
             } else {
                 // Error 
                 return array('status' => true, 'mensaje' => 'Error');
+            }
+        }
+    }
+    
+
+
+    public static function ctrEnviarCorreoPresentes()// enviar correos a los presentes en el evento
+    {
+        if (isset($_POST['btnEnviarCorreo'])) {
+            // Instantiation and passing `true` enables exceptions
+
+
+
+
+            $url = AppControlador::cargarRutaAdmin();
+
+
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = 0;                      // Enable verbose debug output
+                $mail->isSMTP();                                            // Send using SMTP
+                $mail->Host       = 'smtp.hostinger.mx';                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'alberto.fbn@softmor.com';                     // SMTP username
+                $mail->Password   = '199720031230';                               // SMTP password
+                $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+                //Recipients
+                $mail->setFrom('alberto.fbn@softmor.com', 'HNM');
+                $mail->addAddress($_POST['correoAsistente'], $_POST['nombreAsietnte']);     // Add a recipient
+
+
+
+
+                // Content
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = 'Constancia HNM';
+                $mail->Body    = '<a href="' . $url . 'lib/reportes/pagos/constancia.php?idAsistente=' . $_POST['idAsistente'] . '">Descrgar tu constancia</a>';
+
+
+                $mail->send();
+                return true;
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                return false;
             }
         }
     }

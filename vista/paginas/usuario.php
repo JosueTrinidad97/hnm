@@ -1,4 +1,12 @@
 
+<div class="col-12">
+			<button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#addusuario">Añadir Usuario</button>
+
+    </div>
+    <br>
+    <br>
+    <br>
+
 <table class="table">
   <thead>
     <tr>
@@ -14,7 +22,7 @@
         foreach ($usuarios as  $value) :
      ?>
      <tr>
-       <td><?php echo $value['idUsusario']; ?></td>
+       <td><?php echo $value['idUsuario']; ?></td>
        <td><?php echo $value['Nombre']; ?></td>
        <td><?php echo $value['correo']; ?></td>
        <td><button class="btn btn-dark btnCambiarPass" data-toggle="modal" email = "<?php echo $value['correo']; ?>" data-target="#exampleModal">Cambiar contraseña</button></td>

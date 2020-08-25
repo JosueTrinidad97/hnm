@@ -51,52 +51,102 @@ $(".btnEditarEvento").on("click", function () {
       $("#updateubicacion").val(res.ubicacion)
       //$("#updatearchivo2[]").val(res.imagen)
 
-    }
-  })
-})
+      $(".previsualizar-img").attr("src",res.imagen)
 
+
+
+      console.log(res)
+
+      var datosCosto = new FormData()
+
+      datosCosto.append('idEventos', idEvento)
+      datosCosto.append('consultarCosto', true)
+
+      $.ajax({
+
+        url: "ajax/ajax.evento.php",
+        method: "POST",
+        data: datosCosto,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (costos) {
+          console.log(costos)
+
+          var contenido = "";
+          var cont = 1;
+          costos.forEach(element => {
+            contenido += `
+            
+            <div id="UpdatepersonasR_${cont}">
+						<label>Usuario:</label>
+						<input type="text" class="w3-input w3-border form-control" name="tipoPersonaR[]" id="updateusuarioR${cont}" value ="${element.TipoAsistente}" /><label> Costo:</label>
+						<input type="text" class="w3-input w3-border form-control" name="costoR[]" id="updatecostoR${cont}" value ="${element.precio}" /><br>
+						<input class="Ubt_plusR" id="rc${cont}" type="button" value="+">
+						<br><br>
+						</div>
+            `;
+            cont ++;
+          });
+
+          $(".contenedor_costo").html(contenido)
+
+        }
+      });
+
+
+
+
+    }
+
+  })
+
+
+})
+  
 
 
 //
 
 
-$("#myEvento").on("change",function(){
- 
+$("#myEvento").on("change", function () {
+
   pintarTablaEventos($(this).val());
 })
 
 
 
-$("#myCorreo").on("keyup",function(){
+$("#myCorreo").on("keyup", function () {
 
-    var correo  = $(this).val()
+  var correo = $(this).val()
 
-    if($(this).val()==""){
-
-
-      $("#myEvento").val("")
-
-       // $("#myEvento option[value="+ correo +"]").attr("selected",true);
-       // $("#myEvento option[value="+ correo +"]").attr("selected",true);
-        //$("#myEvento option:contains(Todos los eventos)").attr('selected',true)
-
-    }
-
-    pintarTablaEventos("",correo);
+  if ($(this).val() == "") {
 
 
-  
+    $("#myEvento").val("")
+
+    // $("#myEvento option[value="+ correo +"]").attr("selected",true);
+    // $("#myEvento option[value="+ correo +"]").attr("selected",true);
+    //$("#myEvento option:contains(Todos los eventos)").attr('selected',true)
+
+  }
+
+  pintarTablaEventos("", correo);
+
+
+
 })
 
 
-function pintarTablaEventos(idEvento,correo="") {
+function pintarTablaEventos(idEvento, correo = "") {
 
 
   var datos = new FormData();
 
   datos.append('pintarTabla', true);
   datos.append('idEventos', idEvento);
-  datos.append('correo',correo)
+  datos.append('correo', correo)
 
 
   $.ajax({
@@ -124,10 +174,10 @@ function pintarTablaEventos(idEvento,correo="") {
       </thead>
       <tbody>`;
 
-     // 
+      // 
 
-     res.forEach(element => {
-       encabezado += `<tr>`;
+      res.forEach(element => {
+        encabezado += `<tr>`;
 
         encabezado += `
         <td>
@@ -152,16 +202,16 @@ function pintarTablaEventos(idEvento,correo="") {
         
         `
 
-       encabezado += `</tr>`;
+        encabezado += `</tr>`;
 
-       
-     });
 
-     encabezado += `</tbody>
+      });
+
+      encabezado += `</tbody>
      </table>`;
 
 
-     $(".pintarEventos").html(encabezado);
+      $(".pintarEventos").html(encabezado);
 
 
 

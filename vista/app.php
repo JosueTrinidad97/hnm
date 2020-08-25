@@ -239,6 +239,52 @@
     $("#" + "r" + clickID).bind("click", delRowRegistrar);
 
   }
+
+  $(".Ubt_plusR").on("click", addFieldRegistrarEventoC);
+
+  $(".Ubt_plusR").each(function(el) {
+
+    
+    $(".Ubt_plusR").on("click", addFieldRegistrarEventoC);
+
+  });
+
+  function addFieldRegistrarEventoC() {
+
+    alert("Funciono")
+    var clickID = parseInt($(this).parent('div').attr('id').replace('UpdatepersonasR_', ''));
+    console.log(clickID)
+
+    // Genero el nuevo numero id
+    var newID = (clickID + 1);
+
+    // Creo un clon del elemento div que contiene los campos de texto
+    $newClone = $('#UpdatepersonasR_' + clickID).clone(true);
+
+    //Le asigno el nuevo numero id
+    $newClone.attr("id", 'UpdatepersonasR_' + newID);
+
+    //Asigno nuevo id al primer campo input dentro del div y le borro cualquier valor que tenga asi no copia lo ultimo que hayas escrito.(igual que antes no es necesario tener un id)
+    $newClone.children("input").eq(0).attr("id", 'updateusuarioR' + newID).val('');
+
+    //Borro el valor del segundo campo input(este caso es el campo de cantidad)
+    $newClone.children("input").eq(1).attr("id", 'updatecostoR' + newID).val('');
+
+    //Asigno nuevo id al boton
+    $newClone.children("input").eq(2).attr("id", "rc" + newID)
+
+    //Inserto el div clonado y modificado despues del div original
+    $newClone.insertAfter($('#UpdatepersonasR_' + clickID));
+
+    //Cambio el signo "+" por el signo "-" y le quito el evento addfield
+    $("#" + "rc" + clickID).val('-').unbind("click", addFieldRegistrarEvento);
+
+    //Ahora le asigno el evento delRow para que borre la fial en caso de hacer click
+    $("#" + "rc" + clickID).bind("click", delRowRegistrar);
+
+  }
+
+
   $(".tablas").DataTable({
 
     

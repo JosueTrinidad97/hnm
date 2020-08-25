@@ -21,7 +21,7 @@ class PonenteControlador
             $guardar = PonenteModelo::mldAgregarPonente($_POST);
 
             if ($guardar) {
-                AppControlador::mensajeInfo('Bien', 'Formulario Completado', 'success', 'ponentes');
+                AppControlador::mensajeInfo('Bien', 'Ponente registrado', 'success', 'ponentes');
             }
         }
     }

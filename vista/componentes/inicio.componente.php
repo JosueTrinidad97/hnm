@@ -131,7 +131,7 @@
 								</div>
 
 							</div>
-							<h6 class="card-ponentes text-center">Horario <br> <strong>
+							<h6 class="card-ponentes text-center">Fecha <br> <strong>
 								<?php 
 								
 										$fechaC = $value['fecha'];
@@ -153,7 +153,10 @@
 									
 									?>
 
-									<button class="btn btn-default" disabled="disabled"><strong> Cupo lleno :( Cominucate al </strong> </button>
+									<button class="btn btn-secondary" disabled="disabled"><strong> Cupo lleno Comunicate al tel:7773621170 ext:2310 </strong> </button>
+									
+
+									
 
 									<?php  else: ?>
 									<button class="btn btn-primary btnInscripcionEvento " data-toggle="modal" data-target="#mdlInscripcion"  nombreEvento="<?php echo $value['tema'] ?>" idEvento="<?php echo $value['idEventos'] ?>">Inscribirme</button>

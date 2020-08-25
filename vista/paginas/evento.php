@@ -61,7 +61,17 @@
 								</div>
 
 							</div>
-							<h6 class="card-ponentes text-center">Horario <br> <strong><?php echo $value['fecha'] . ' ' . $value['hora'] ?></strong></h6>
+							<h6 class="card-ponentes text-center">Fecha <br> <strong>
+									<?php
+
+									$fechaC = $value['fecha'];
+									$fechaC = explode(' ', $fechaC);
+									$hora = explode(':', $fechaC[1]);
+
+									echo $fechaC[0] . ' ', $hora[0] . ':' . $hora[1];
+
+									?>
+								</strong></h6>
 							<div class="row">
 								<div class="col-12 ">
 									<form action="" method="post">
@@ -106,7 +116,8 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="#" method="POST" enctype="multipart/form-data"> <!-- Para que cargue archivos mulimedia en el formulario -->
+				<form action="#" method="POST" enctype="multipart/form-data">
+					<!-- Para que cargue archivos mulimedia en el formulario -->
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-6 col-12">
@@ -164,7 +175,7 @@
 										<div class="form-group">
 
 											<label>Seleccionar Imagen(s):</label><br>
-											<input class=" form-control" type="file" id="img-evento" name="img-evento"  required><br>
+											<input class=" form-control" type="file" id="img-evento" name="img-evento" required><br>
 											<label id="error"></label><br>
 										</div>
 
@@ -241,13 +252,17 @@
 											<input type="number" name="capacidad" id="updatecapacidad" class="form-control">
 
 										</div>
-										<div id="updatepersonasR_1">
-											<label>Usuario:</label>
-											<input type="text" class="w3-input w3-border form-control" name="tipoPersonaR[]" id="updateusuarioR1" /><label> Costo:</label>
-											<input type="text" class="w3-input w3-border form-control" name="costoR[]" id="updatecostoR1" /><br>
-											<input class="bt_plusR" id="updater1" type="button" value="+">
-											<br><br>
+										<div class="contenedor_costo">
+											<div id="UpdatepersonasR_1">
+												<label>Usuario:</label>
+												<input type="text" class="w3-input w3-border form-control" name="tipoPersonaR[]" id="updateusuarioR1" /><label> Costo:</label>
+												<input type="text" class="w3-input w3-border form-control" name="costoR[]" id="updatecostoR1" /><br>
+												<input class="Ubt_plusR" id="rc" type="button" value="+">
+												<br><br>
+											</div>
+
 										</div>
+
 									</div>
 								</div>
 							</div>
@@ -263,7 +278,12 @@
 										<div class="form-group">
 
 											<label>Seleccionar Imagen(s):</label><br>
-											<input class="w3-input w3-border form-control" type="file" id="updatearchivo2[]" name="imagenes[]" multiple required><br>
+											<div class="card ">
+
+											 <center>	<img src="" width="200" height="200"  class="previsualizar-img" alt="">  </center>
+
+											</div>
+											<input class="w3-input w3-border form-control" type="file" id="updateImagen" name="updateImagen"  ><br>
 											<label id="error"></label><br>
 										</div>
 

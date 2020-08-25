@@ -86,7 +86,7 @@
 
 		public static function mdlObtenerUsuarios(){
 			try {
-				$sql = "SELECT idUsusario,Nombre,correo FROM usuario";
+				$sql = "SELECT idUsuario,Nombre,correo FROM usuario";
 
 				$con = ConexionModelo::conectarBd('EventosPrueba');
 
@@ -129,6 +129,43 @@
 				$pps = null;
 			}
 		}
+		public static function mdlAgreagarUsuario($usuario)
+	{
+
+		try {
+			// QUERY DE INSERT
+
+			$sql = "INSERT INTO usuario(idUsuario,nombre,correo,contrasenia) values(?,?,?,?)";
+
+			$con = ConexionModelo::conectarBd('EventosPrueba');
+
+			// Preparar la consulta
+
+			$pps = $con->prepare($sql);
+
+			// Asignar los valores 
+
+			$pps->bindValue(1, $usuario['idUsuario']);
+			$pps->bindValue(2, $usuario['nombre']);
+			$pps->bindValue(3, $usuario['correo']);
+			$pps->bindValue(4, $usuario['contrasenia']);
+			
+
+			// Ejecutar la consulta 
+
+			$pps->execute();
+
+			return $pps->rowCount() > 0;
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+			return false;
+		} finally {
+			//Cerar conexion
+
+			$pps = null;
+			$con = null;
+		}
+	}
 	}
 
 
